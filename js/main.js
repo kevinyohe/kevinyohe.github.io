@@ -35,7 +35,16 @@ function addZero(n){
 function setBgGreet(){
     let today = new Date(),
     hour = today.getHours();
-    if(hour < 12){
+    month = today.getMonth();
+    day = today.getDate();
+    console.log(month)
+    console.log(day)
+    if(month === 6 && day ===4 ){
+        document.body.style.backgroundImage = "url('../img/fireworks.jpg')";
+        greeting.textContent = 'Happy 4th of July'; 
+        document.body.style.color = 'whitesmoke';  
+    }
+    else if(hour < 12){
         //morning
         document.body.style.backgroundImage = "url('../img/morning.jpg')";
         greeting.textContent = 'Good Morning';

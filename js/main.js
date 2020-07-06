@@ -4,6 +4,7 @@ greeting = document.getElementById('greeting'),
 name = document.getElementById('name'),
 focus = document.getElementById('focus');
 
+	
 //Options
 const showAmPm = true;
 
@@ -108,6 +109,32 @@ function setFocus(e) {
     }
 };
 
+function weatherUpdate( cityID ) {
+    var key = '4a1ba09ff1c28be885063186f82bb229';
+    fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)  
+    .then(function(resp) { return resp.json() }) // Convert data to json
+    .then(function(data) {
+      displayWeather(data);
+    })
+    .catch(function() {
+      // catch any errors
+    });
+  }
+  
+  window.onload = function() {
+    weatherUpdate( 4174855 );
+  }
+
+function displayWeather(d){
+    
+    var celcius = Math.round(parseFloat(d.main.temp)-273.15);
+    var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32); 
+    
+    document.getElementById('description').innerHTML = d.weather[0].description;
+    document.getElementById('temp').innerHTML = fahrenheit + '&deg;';
+    document.getElementById('location').innerHTML = d.name; 
+}
+
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', setName);
 focus.addEventListener('keypress', setFocus);
@@ -118,3 +145,5 @@ showTime();
 setBgGreet();
 getName();
 getFocus();
+displayWeather();
+
